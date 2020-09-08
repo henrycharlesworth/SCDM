@@ -19,10 +19,7 @@ def worker(remote, parent_remote, env_fn_wrapper):
                 remote.send((ob, reward, done, info))
         elif cmd == 'reset':
             ob = env.reset()
-            if isinstance(ob, dict):
-                remote.send(ob["observation"])
-            else:
-                remote.send(ob)
+            remote.send(ob["observation"])
         elif cmd == 'get_state':
             state = env.env.sim.get_state()
             remote.send(CloudpickleWrapper(state))
