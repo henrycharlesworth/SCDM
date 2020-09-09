@@ -134,7 +134,7 @@ if __name__ == "__main__":
     parser.add_argument('--forget_init_past_ac_frac', type=float, default=0.3)
     parser.add_argument('--no_sum_rewards', dest='sum_rewards', action='store_false')
     parser.add_argument('--initialise_frac_with_prev_best', type=float, default=1.0)
-    parser.add_argument('--num_envs', type=int, default=5)
+    parser.add_argument('--num_envs', type=int, default=1)
     parser.add_argument('--traj_len', type=int, default=50)
     parser.add_argument('--tau_scaler', type=float, default=1.0)
     parser.set_defaults(sum_rewards=True)

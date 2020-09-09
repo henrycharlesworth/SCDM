@@ -11,8 +11,6 @@ def worker(remote, parent_remote, env_fn_wrapper):
         cmd, data = remote.recv()
         if cmd == 'step':
             ob, reward, done, info = env.step(data)
-            if done:
-                ob = env.reset()
             if isinstance(ob, dict):
                 remote.send((ob["observation"], reward, done, info))
             else:
