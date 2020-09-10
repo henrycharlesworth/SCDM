@@ -156,6 +156,6 @@ if __name__ == "__main__":
                       forget_init_past_ac_frac=args.forget_init_past_ac_frac, sum_rewards=args.sum_rewards,
                       initialise_frac_with_prev_best=args.initialise_frac_with_prev_best, name=args.env,
                       tau_scaler=args.tau_scaler)
-    generator = TrajectoryGenerator(planner, traj_len=args.traj_len)
+    generator = TrajectoryGenerator(planner, traj_len=args.traj_len, expt_tag=args.expt_tag)
     traj = generator.generate_trajectory()
     joblib.dump((traj, args), "experiments/"+args.env+"_"+args.expt_tag+".pkl")

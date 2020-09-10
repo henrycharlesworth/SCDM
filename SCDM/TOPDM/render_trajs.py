@@ -10,8 +10,7 @@ env_name = "EggHandOver-v0"
 env = gym.make(env_name)
 
 file_names = [
-    "EggHandOver-v0_traj_1.pkl",
-    "EggHandOver-v0_traj_2.pkl"
+    "EggHandOver-v0_traj_1.pkl"
 ]
 trajectory_files = [
     "experiments/" + file for file in file_names
