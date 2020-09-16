@@ -1,0 +1,2 @@
+Step 0. Reward: -1.331621, success: None, d_pos: 0.000000, d_rot: 0.000000. Best future reward: 2.717509. Took 6.773234 seconds!
+Step 1. Reward: 0.048890, success: None, d_pos: 0.000000, d_rot: 0.000000. Best future reward: 6.591366. Took 5.393431 seconds!

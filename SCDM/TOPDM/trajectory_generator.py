@@ -96,7 +96,10 @@ class TrajectoryGenerator(object):
         self.primary_env.env.sim.set_state(curr_states[0].x)
         self.primary_env.env.sim.forward()
         obs, r, _, info = self.primary_env.step(action)
-        d_pos, d_rot = self.primary_env.env._goal_distance(obs["achieved_goal"], self.primary_env.goal)
+        try:
+            d_pos, d_rot = self.primary_env.env._goal_distance(obs["achieved_goal"], self.primary_env.goal)
+        except:
+            d_pos, d_rot = 0.0, 0.0 #PenSpin has no goal.
         if self.planner.name is not None:
             if self.planner.name.startswith("Two"):
                 d_pos = [d_pos[0], d_rot[0]]; d_rot = [d_pos[1], d_rot[1]] #goal_distance returns (dpos1, drot1), (dpos2, drot2) whent here are two objects
