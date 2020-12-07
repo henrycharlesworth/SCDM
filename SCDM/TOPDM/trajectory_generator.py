@@ -56,11 +56,11 @@ class TrajectoryGenerator(object):
 
         for t in range(self.traj_len):
             t1 = time.time()
-            self.planner.num_iterations = int(min_it + (y0 - (y0/max_step)*t))
+            self.planner.num_iterations = int(max(min_it + (y0 - (y0/max_step)*t), 1))
             if self.planner.num_iterations < min_it:
                 self.planner.num_iterations = min_it
-            self.planner.later_noise = self.planner.later_noise[0]*np.ones((self.planner.num_iterations-1,))
-            self.planner.later_noise_frac = self.planner.later_noise_frac[0]*np.ones((self.planner.num_iterations-1,))
+            self.planner.later_noise = self.planner.later_noise[0]*np.ones((max(self.planner.num_iterations-1, 1),))
+            self.planner.later_noise_frac = self.planner.later_noise_frac[0]*np.ones((max(self.planner.num_iterations-1,1),))
 
             best_reward, best_ac_traj, best_ac_means, best_reward_its, (mean_rew, std_rew) = self.planner.plan(curr_states)
             self.trajectory["best_rewards_it"].append(best_reward_its.copy())
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     parser.add_argument('--beta', type=float, default=0.7)
     parser.add_argument('--later_noise', type=float, default=0.3)
     parser.add_argument('--later_noise_frac', type=float, default=0.3)
-    parser.add_argument('--forget_init_past_ac_frac', type=float, default=0.3)
+    parser.add_argument('--forget_init_past_ac_frac', type=float, default=0.0)
     parser.add_argument('--no_sum_rewards', dest='sum_rewards', action='store_false')
     parser.add_argument('--initialise_frac_with_prev_best', type=float, default=1.0)
     parser.add_argument('--num_envs', type=int, default=1)
@@ -148,8 +148,13 @@ if __name__ == "__main__":
     print(args.env + " - " + args.expt_tag)
     print("\n")
 
-    def env_fn():
-        return gym.make(args.env)
+    if args.env == "HandPenMod":
+        from SCDM.TOPDM.envs.hand_pen import HandPen
+        def env_fn():
+            return HandPen()
+    else:
+        def env_fn():
+            return gym.make(args.env)
     env_fns = [env_fn for _ in range(args.num_envs)]
     envs = SubprocVecEnv(env_fns)
 
