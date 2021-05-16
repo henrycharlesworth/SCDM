@@ -129,7 +129,7 @@ if __name__ == "__main__":
     parser.add_argument('--tau', type=int, default=20)
     parser.add_argument('--num_samples_per_it', type=int, default=1000)
     parser.add_argument('--frac_best', type=float, default=0.05)
-    parser.add_argument('--num_iterations', type=int, default=40)
+    parser.add_argument('--num_iterations', type=int, default=20)
     parser.add_argument('--init_noise', type=float, default=0.9)
     parser.add_argument('--beta', type=float, default=0.7)
     parser.add_argument('--later_noise', type=float, default=0.3)
